@@ -1,0 +1,81 @@
+version: '3.7'
+
+services:
+  tlato-backend:
+    build:
+      context: ..
+      args:
+        - PORT=${PORT}
+      dockerfile: ./docker/Dockerfile
+    image: ${IMAGE_NAME}:prod
+    container_name: tlato-backend
+    restart: always
+    depends_on:
+      - tlato-backend-postgres
+    env_file:
+      - ../.env
+    environment:
+      - TZ=${TZ}
+      - WAIT_HOSTS=tlato-backend-postgres:5432
+    volumes:
+      - ${LOGS_VOLUME}:/app/logs
+    ports:
+      - ${EXTERNAL_PORT}:${PORT}
+
+  tlato-backend-postgres:
+    image: postgres:16
+    container_name: tlato-backend-postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - TZ=${TZ}
+    volumes:
+      - ${DB_VOLUME}:/var/lib/postgresql/data
+    ports:
+      - ${DB_PORT}:5432
+
+  tlato-backend-pgweb:
+    image: sosedoff/pgweb
+    container_name: tlato-backend-pgweb
+    restart: always
+    depends_on:
+      - tlato-backend-postgres
+    environment:
+      - PGWEB_DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@tlato-backend-postgres:5432/${DB_NAME}?sslmode=disable
+      - TZ=${TZ}
+    ports:
+      - ${DB_MANAGER_PORT}:8081
+
+  tlato-backend-redis:
+    image: redis:7
+    container_name: tlato-backend-redis
+    restart: always
+    command: /bin/sh -c "redis-server --appendonly yes --requirepass ${CACHE_PASSWORD}"
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${CACHE_VOLUME}:/data
+    ports:
+      - ${CACHE_PORT}:6379
+
+  tlato-backend-redis-commander:
+    image: rediscommander/redis-commander
+    container_name: tlato-backend-redis-commander
+    restart: always
+    platform: linux/amd64
+    depends_on:
+      - tlato-backend-redis
+    environment:
+      - REDIS_LABEL=${IMAGE_NAME}-cache
+      - REDIS_HOST=tlato-backend-redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${CACHE_PASSWORD}
+      - TZ=${TZ}
+    ports:
+      - ${CACHE_MANAGER_PORT}:8081
+
+networks:
+  default:
+    name: ${IMAGE_NAME}-network

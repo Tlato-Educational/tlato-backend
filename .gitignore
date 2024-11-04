@@ -1,41 +1,106 @@
-lib-cov
-*.seed
+# Vars
+.env.*
+
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.npm
+
+# Testing
+coverage/
+*.lcov
+
+# Production
+dist/
+build/
+
+# Misc
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 *.log
-*.csv
-*.dat
-*.out
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Runtime data
+pids/
 *.pid
-*.gz
-*.swp
+*.seed
+*.pid.lock
 
-pids
-logs
-results
-tmp
+# Lint
+.eslintcache
+.stylelintcache
 
-# Build
-public/css/main.css
+# App data
+.docker/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Coverage reports
-coverage
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
 
-# API keys and secrets
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
 .env
 
-# Dependency directory
-node_modules
-bower_components
+# next.js build output
+.next/
 
-# Editors
-.idea
-*.iml
+# Nuxt.js build / generate output
+.nuxt/
 
-# OS metadata
-.DS_Store
-Thumbs.db
+# Gatsby files
+.cache/
+# Comment in the public line in if your project uses Gatsby and not Next.js
+# public
 
-# Ignore built ts files
-dist/**/*
+# vuepress build output
+.vuepress/dist
 
-# ignore yarn.lock
-yarn.lock
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port

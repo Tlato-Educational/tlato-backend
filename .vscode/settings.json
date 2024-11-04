@@ -1,26 +1,31 @@
-// Place your settings in this file to overwrite default and user settings.
 {
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "cSpell.enabled": true,
+  "cSpell.userWords": [], // only use words from .cspell.json
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.format": "explicit",
+    "source.fixAll.stylelint": "explicit",
+    "source.fixAll.htmlhint": "explicit"
   },
-  "eslint.validate": ["javascript", "typescript"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
-  "[javascript]": {
-    "editor.formatOnSave": false
+  "eslint.alwaysShowStatus": true,
+  "eslint.options": {
+    "extensions": [".js", ".ts", ".html"]
   },
-  "[typescript]": {
-    "editor.formatOnSave": false
-  },
-  "[markdown]": {
-    "editor.formatOnSave": false
-  },
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "**/dist": true,
-    "**/coverage": true
-  },
-  "typescript.referencesCodeLens.enabled": true,
-  "appService.zipIgnorePattern": [".vscode{,/**}"],
-  "appService.deploySubpath": ""
+  "eslint.validate": ["javascript", "typescript", "html"],
+  "htmlhint.enable": true,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.gutterIconSet": "borderless",
+  "errorLens.followCursor": "activeLine",
+  "stylelint.enable": true,
+  "stylelint.validate": ["css", "scss"],
+  "editor.acceptSuggestionOnEnter": "on"
 }
